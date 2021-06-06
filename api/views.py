@@ -7,6 +7,32 @@ from .models import WateringSettings
 
 
 @require_POST
+def create_watering_setting(request: HttpRequest) -> JsonResponse:
+    guild_id: str = request.POST.get('guild_id', None)
+
+    if guild_id is None:
+        return JsonResponse(
+            status=500,
+            data={
+                'result': 'failure',
+                'error_code': ErrorResponse.REQUIRE_PARAMETER.value,
+            }
+        )
+
+    WateringSettings(
+        guild_id=guild_id,
+        interval=None,
+    ).save()
+
+    return JsonResponse(
+        status=200,
+        data={
+            'result': 'success'
+        }
+    )
+
+
+@require_POST
 def update_auto_watering_interval(request: HttpRequest) -> JsonResponse:
     interval: str = request.POST.get('interval', None)
     guild_id: str = request.POST.get('guild_id', None)
