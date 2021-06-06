@@ -1,0 +1,7 @@
+import enum
+
+
+class ErrorResponse(enum.Enum):
+    REQUIRE_PARAMETER = 1001
+    INVALID_PARAMETER_FORMAT = 1002
+    WATERING_SETTING_NOT_FOUND = 1003

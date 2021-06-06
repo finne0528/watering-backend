@@ -3,3 +3,4 @@
 django
 pymysql
 cryptography
+uwsgi
