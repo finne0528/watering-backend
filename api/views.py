@@ -16,7 +16,7 @@ def update_auto_watering_interval(request: HttpRequest) -> JsonResponse:
             status=500,
             data={
                 'result': 'failure',
-                'error_code': ErrorResponse.REQUIRE_PARAMETER,
+                'error_code': ErrorResponse.REQUIRE_PARAMETER.value,
             }
         )
 
@@ -25,17 +25,18 @@ def update_auto_watering_interval(request: HttpRequest) -> JsonResponse:
             status=500,
             data={
                 'result': 'failure',
-                'error_code': ErrorResponse.INVALID_PARAMETER_FORMAT,
+                'error_code': ErrorResponse.INVALID_PARAMETER_FORMAT.value,
             }
         )
 
-    watering_setting = WateringSettings.objects.get(guild_id=guild_id)
-    if watering_setting is None:
+    try:
+        watering_setting = WateringSettings.objects.get(guild_id=guild_id)
+    except:
         return JsonResponse(
             status=404,
             data={
                 'result': 'failure',
-                'error_code': ErrorResponse.WATERING_SETTING_NOT_FOUND
+                'error_code': ErrorResponse.WATERING_SETTING_NOT_FOUND.value
             }
         )
 
